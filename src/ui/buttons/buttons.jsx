@@ -15,6 +15,7 @@ import {
   BUTTON_NUMBER,
   BUTTON_LAYOUT,
   BUTTON_FLOW,
+  MESSAGE_POSITION,
 } from "../../constants";
 import {
   determineEligibleFunding,
@@ -22,42 +23,30 @@ import {
 } from "../../funding";
 import { ValidationError } from "../../lib";
 
-import { getButtonDesign } from "./buttonDesigns";
-import { ButtonDesignExperimentScriptWrapper } from "./buttonDesigns/script";
-import {
-  normalizeButtonProps,
-  type ButtonPropsInputs,
-  type OnShippingChange,
-  type OnShippingAddressChange,
-  type OnShippingOptionsChange,
-} from "./props";
+import { normalizeButtonProps, type ButtonPropsInputs } from "./props";
 import { Style } from "./style";
 import { Button } from "./button";
 import { TagLine } from "./tagline";
 import { Script } from "./script";
 import { PoweredByPayPal } from "./poweredBy";
+import { Message } from "./message";
+import { calculateShowPoweredBy } from "./util";
 
 type GetWalletInstrumentOptions = {|
   wallet: ?Wallet,
   fundingSource: $Values<typeof FUNDING>,
-  onShippingChange: ?OnShippingChange,
-  onShippingAddressChange: ?OnShippingAddressChange,
-  onShippingOptionsChange: ?OnShippingOptionsChange,
+  hasShippingCallback: boolean,
 |};
 
 function getWalletInstrument({
   wallet,
   fundingSource,
-  onShippingChange,
-  onShippingAddressChange,
-  onShippingOptionsChange,
+  hasShippingCallback,
 }: GetWalletInstrumentOptions): ?WalletInstrument {
   if (
     !isWalletFundingEligible({
       wallet,
-      onShippingChange,
-      onShippingAddressChange,
-      onShippingOptionsChange,
+      hasShippingCallback,
     })
   ) {
     return;
@@ -80,9 +69,7 @@ const FUNDING_TO_INSTRUMENT = {
 type GetWalletInstrumentsOptions = {|
   wallet: ?Wallet,
   fundingSources: $ReadOnlyArray<$Values<typeof FUNDING>>,
-  onShippingChange: ?OnShippingChange,
-  onShippingAddressChange: ?OnShippingAddressChange,
-  onShippingOptionsChange: ?OnShippingOptionsChange,
+  hasShippingCallback: boolean,
   layout: $Values<typeof BUTTON_LAYOUT>,
 |};
 
@@ -90,9 +77,7 @@ function getWalletInstruments({
   wallet,
   layout,
   fundingSources,
-  onShippingChange,
-  onShippingAddressChange,
-  onShippingOptionsChange,
+  hasShippingCallback,
 }: GetWalletInstrumentsOptions): {|
   [$Values<typeof FUNDING>]: WalletInstrument,
 |} {
@@ -101,9 +86,7 @@ function getWalletInstruments({
     const instrument = getWalletInstrument({
       wallet,
       fundingSource: source,
-      onShippingChange,
-      onShippingAddressChange,
-      onShippingOptionsChange,
+      hasShippingCallback,
     });
 
     if (instrument) {
@@ -153,31 +136,37 @@ export function validateButtonProps(props: ButtonPropsInputs) {
 export function Buttons(props: ButtonsProps): ElementNode {
   const { onClick = noop } = props;
   const {
-    wallet,
-    fundingSource,
-    style,
-    locale,
-    remembered,
-    env,
-    fundingEligibility,
-    platform,
+    applePaySupport,
+    buyerCountry,
     commit,
-    vault,
-    nonce,
-    enableFunding,
     components,
-    onShippingChange,
+    content,
+    customerId,
+    displayOnly,
+    enableFunding,
+    env,
+    experiment,
+    flow,
+    fundingEligibility,
+    fundingSource,
+    hasShippingCallback,
+    locale,
+    message,
+    messageMarkup,
+    nonce,
     onShippingAddressChange,
+    onShippingChange,
     onShippingOptionsChange,
     personalization,
-    userIDToken,
-    content,
-    flow,
-    experiment,
-    applePaySupport,
-    supportsPopups,
-    supportedNativeBrowser,
+    platform,
+    remembered,
     showPayLabel,
+    style,
+    supportedNativeBrowser,
+    supportsPopups,
+    userIDToken,
+    vault,
+    wallet,
   } = normalizeButtonProps(props);
   const { layout, shape, tagline } = style;
 
@@ -190,12 +179,16 @@ export function Buttons(props: ButtonsProps): ElementNode {
     enableFunding,
     components,
     onShippingChange,
+    onShippingAddressChange,
+    onShippingOptionsChange,
+    hasShippingCallback,
     flow,
     wallet,
     applePaySupport,
     supportsPopups,
     supportedNativeBrowser,
     experiment,
+    displayOnly,
   });
   const multiple = fundingSources.length > 1;
 
@@ -224,24 +217,30 @@ export function Buttons(props: ButtonsProps): ElementNode {
     wallet,
     fundingSources,
     layout,
-    onShippingChange,
-    onShippingAddressChange,
-    onShippingOptionsChange,
+    hasShippingCallback,
   });
 
   const isWallet =
     flow === BUTTON_FLOW.PURCHASE &&
     ((__WEB__ && userIDToken) || Object.keys(instruments).length);
 
-  const { buttonDesignScript = "" } = getButtonDesign(personalization);
   const index = (i) => {
     return i;
   };
+
+  const showTagline =
+    tagline &&
+    layout === BUTTON_LAYOUT.HORIZONTAL &&
+    !fundingSource &&
+    !message;
+
+  const showPoweredBy = calculateShowPoweredBy(layout, fundingSources);
 
   return (
     <div
       class={[
         CLASS.CONTAINER,
+        CLASS.AUTORESIZE_CONTAINER,
         `${CLASS.LAYOUT}-${layout}`,
         `${CLASS.SHAPE}-${shape}`,
         `${CLASS.NUMBER}-${
@@ -257,6 +256,10 @@ export function Buttons(props: ButtonsProps): ElementNode {
         fundingEligibility={fundingEligibility}
       />
 
+      {message && message.position === MESSAGE_POSITION.TOP ? (
+        <Message markup={messageMarkup} position={message.position} />
+      ) : null}
+
       {fundingSources.map((source, i) => (
         <Button
           content={content}
@@ -266,6 +269,7 @@ export function Buttons(props: ButtonsProps): ElementNode {
           fundingSource={source}
           multiple={multiple}
           env={env}
+          buyerCountry={buyerCountry}
           locale={locale}
           nonce={nonce}
           fundingEligibility={fundingEligibility}
@@ -275,6 +279,7 @@ export function Buttons(props: ButtonsProps): ElementNode {
           onShippingOptionsChange={onShippingOptionsChange}
           onClick={onClick}
           userIDToken={userIDToken}
+          customerId={customerId}
           personalization={personalization}
           tagline={tagline}
           commit={commit}
@@ -286,7 +291,7 @@ export function Buttons(props: ButtonsProps): ElementNode {
         />
       ))}
 
-      {tagline && layout === BUTTON_LAYOUT.HORIZONTAL && !fundingSource ? (
+      {showTagline ? (
         <TagLine
           fundingSource={fundingSources[0]}
           style={style}
@@ -308,19 +313,13 @@ export function Buttons(props: ButtonsProps): ElementNode {
         />
       ) : null}
 
-      {layout === BUTTON_LAYOUT.VERTICAL &&
-      fundingSources.indexOf(FUNDING.CARD) !== -1 ? (
-        <PoweredByPayPal locale={locale} nonce={nonce} />
+      {showPoweredBy ? <PoweredByPayPal locale={locale} nonce={nonce} /> : null}
+
+      {message && message.position === MESSAGE_POSITION.BOTTOM ? (
+        <Message markup={messageMarkup} position={message.position} />
       ) : null}
 
-      {buttonDesignScript ? (
-        <ButtonDesignExperimentScriptWrapper
-          nonce={nonce}
-          buttonDesignScript={buttonDesignScript}
-        />
-      ) : (
-        <Script nonce={nonce} />
-      )}
+      <Script nonce={nonce} />
     </div>
   );
 }

@@ -1,3 +1,405 @@
+## <small>5.0.347 (2025-01-08)</small>
+
+* support visibility change for manual app switch flow (#2460) ([3d1bb8f](https://github.com/paypal/paypal-checkout-components/commit/3d1bb8f)), closes [#2460](https://github.com/paypal/paypal-checkout-components/issues/2460)
+
+
+
+## <small>5.0.346 (2024-11-13)</small>
+
+* chore(release): 5.0.345 🎉 ([7d12516](https://github.com/paypal/paypal-checkout-components/commit/7d12516))
+
+
+
+## <small>5.0.345 (2024-11-13)</small>
+
+* Add validation for SDK token when createSubscription is being passed (#2450) ([f0483a1](https://github.com/paypal/paypal-checkout-components/commit/f0483a1)), closes [#2450](https://github.com/paypal/paypal-checkout-components/issues/2450)
+
+
+
+## <small>5.0.344 (2024-10-23)</small>
+
+* Defining ThreeDomainSecureClient component interface (#2447) ([4857dc7](https://github.com/paypal/paypal-checkout-components/commit/4857dc7)), closes [#2447](https://github.com/paypal/paypal-checkout-components/issues/2447)
+
+
+
+## <small>5.0.343 (2024-10-09)</small>
+
+* feat(3DS): Barebones for the new 3DS component (#2433) ([6df3755](https://github.com/paypal/paypal-checkout-components/commit/6df3755)), closes [#2433](https://github.com/paypal/paypal-checkout-components/issues/2433)
+
+
+
+## <small>5.0.342 (2024-10-04)</small>
+
+* Add getSDKToken for card fields (#2445) ([57d78fb](https://github.com/paypal/paypal-checkout-components/commit/57d78fb)), closes [#2445](https://github.com/paypal/paypal-checkout-components/issues/2445)
+
+
+
+## <small>5.0.341 (2024-10-03)</small>
+
+* Revert "Pin jsx-pragmatic to 3.0.0 (#2443)" (#2444) ([a2fc264](https://github.com/paypal/paypal-checkout-components/commit/a2fc264)), closes [#2443](https://github.com/paypal/paypal-checkout-components/issues/2443) [#2444](https://github.com/paypal/paypal-checkout-components/issues/2444)
+
+
+
+## <small>5.0.340 (2024-10-02)</small>
+
+* Pin jsx-pragmatic to 3.0.0 (#2443) ([48948c9](https://github.com/paypal/paypal-checkout-components/commit/48948c9)), closes [#2443](https://github.com/paypal/paypal-checkout-components/issues/2443)
+
+
+
+## <small>5.0.339 (2024-10-02)</small>
+
+* Adding Installments and IC2B for Card Fields (#2432) ([660ea8d](https://github.com/paypal/paypal-checkout-components/commit/660ea8d)), closes [#2432](https://github.com/paypal/paypal-checkout-components/issues/2432)
+
+
+
+## <small>5.0.338 (2024-09-12)</small>
+
+* feat(qrcode): remove onEscapePath (#2434) ([48b1f57](https://github.com/paypal/paypal-checkout-components/commit/48b1f57)), closes [#2434](https://github.com/paypal/paypal-checkout-components/issues/2434)
+
+
+
+## <small>5.0.337 (2024-08-23)</small>
+
+* Fix button color styles being applied incorrectly for vaulted flows (#2426) ([6f8e7b9](https://github.com/paypal/paypal-checkout-components/commit/6f8e7b9)), closes [#2426](https://github.com/paypal/paypal-checkout-components/issues/2426)
+
+
+
+## <small>5.0.336 (2024-08-22)</small>
+
+* fature(CardForm): add hasShippingCallback prop (#2429) ([99869c8](https://github.com/paypal/paypal-checkout-components/commit/99869c8)), closes [#2429](https://github.com/paypal/paypal-checkout-components/issues/2429)
+
+
+
+## <small>5.0.335 (2024-08-15)</small>
+
+* Add experiment prop to funding source validation 👾 (#2423) ([e36accc](https://github.com/paypal/paypal-checkout-components/commit/e36accc)), closes [#2423](https://github.com/paypal/paypal-checkout-components/issues/2423)
+
+
+
+## <small>5.0.334 (2024-08-07)</small>
+
+* feat: add country prop/param to checkout (#2425) ([c16b503](https://github.com/paypal/paypal-checkout-components/commit/c16b503)), closes [#2425](https://github.com/paypal/paypal-checkout-components/issues/2425)
+
+
+
+## <small>5.0.333 (2024-07-29)</small>
+
+* Fix default button color logic for smart stack (#2424) ([5344807](https://github.com/paypal/paypal-checkout-components/commit/5344807)), closes [#2424](https://github.com/paypal/paypal-checkout-components/issues/2424)
+
+
+
+## <small>5.0.332 (2024-07-25)</small>
+
+* Fix button styles when paypal button is not vaultable (#2420) ([92006e4](https://github.com/paypal/paypal-checkout-components/commit/92006e4)), closes [#2420](https://github.com/paypal/paypal-checkout-components/issues/2420)
+
+
+
+## <small>5.0.331 (2024-07-17)</small>
+
+* Add venmoVaultEnabled prop to venmo zoid component (#2419) ([75454c7](https://github.com/paypal/paypal-checkout-components/commit/75454c7)), closes [#2419](https://github.com/paypal/paypal-checkout-components/issues/2419)
+
+
+
+## <small>5.0.330 (2024-07-09)</small>
+
+* Update eligibility check for installment label (#2418) ([1bdc9b4](https://github.com/paypal/paypal-checkout-components/commit/1bdc9b4)), closes [#2418](https://github.com/paypal/paypal-checkout-components/issues/2418)
+
+
+
+## <small>5.0.329 (2024-07-01)</small>
+
+* feat/DTXOUP-3505/update-accelerated-loader (#2408) ([7c38548](https://github.com/paypal/paypal-checkout-components/commit/7c38548)), closes [#2408](https://github.com/paypal/paypal-checkout-components/issues/2408)
+
+
+
+## <small>5.0.328 (2024-06-26)</small>
+
+* chore(release): 5.0.327 🎉 ([973267f](https://github.com/paypal/paypal-checkout-components/commit/973267f))
+
+
+
+## <small>5.0.327 (2024-06-18)</small>
+
+* Remove logger from funding (#2415) ([1e7ae8e](https://github.com/paypal/paypal-checkout-components/commit/1e7ae8e)), closes [#2415](https://github.com/paypal/paypal-checkout-components/issues/2415)
+
+
+
+## <small>5.0.326 (2024-06-17)</small>
+
+* Fix Venmo Eligibility for Venmo Web & Shipping Callbacks 👾 (#2412) ([a79bfc1](https://github.com/paypal/paypal-checkout-components/commit/a79bfc1)), closes [#2412](https://github.com/paypal/paypal-checkout-components/issues/2412)
+
+
+
+## <small>5.0.325 (2024-06-14)</small>
+
+* use query param for atomics waiting state (#2410) ([9b1de91](https://github.com/paypal/paypal-checkout-components/commit/9b1de91)), closes [#2410](https://github.com/paypal/paypal-checkout-components/issues/2410)
+
+
+
+## <small>5.0.324 (2024-06-14)</small>
+
+* New Feature: disableMaxHeight (#2361) ([f2e74da](https://github.com/paypal/paypal-checkout-components/commit/f2e74da)), closes [#2361](https://github.com/paypal/paypal-checkout-components/issues/2361)
+
+
+
+## <small>5.0.323 (2024-06-12)</small>
+
+* fix: dynamic messages - pass merchant id from cpnw callback, flush logger (#2381) ([ead263f](https://github.com/paypal/paypal-checkout-components/commit/ead263f)), closes [#2381](https://github.com/paypal/paypal-checkout-components/issues/2381)
+
+
+
+## <small>5.0.322 (2024-06-12)</small>
+
+* Support Venmo vault without purchase with a feature flag (#2403) ([f2e7067](https://github.com/paypal/paypal-checkout-components/commit/f2e7067)), closes [#2403](https://github.com/paypal/paypal-checkout-components/issues/2403)
+
+
+
+## <small>5.0.321 (2024-06-10)</small>
+
+* Button autoResize by button container (#2404) ([80f48b0](https://github.com/paypal/paypal-checkout-components/commit/80f48b0)), closes [#2404](https://github.com/paypal/paypal-checkout-components/issues/2404)
+
+
+
+## <small>5.0.320 (2024-05-29)</small>
+
+* add atomics waiting state xprop for checkout (#2402) ([6bad872](https://github.com/paypal/paypal-checkout-components/commit/6bad872)), closes [#2402](https://github.com/paypal/paypal-checkout-components/issues/2402)
+
+
+
+## <small>5.0.319 (2024-05-24)</small>
+
+* Make Venmo ineligible if shipping callback is present & displayOnly includes "vaultable"  👾 (#2394) ([841bf90](https://github.com/paypal/paypal-checkout-components/commit/841bf90)), closes [#2394](https://github.com/paypal/paypal-checkout-components/issues/2394)
+
+
+
+## <small>5.0.318 (2024-05-23)</small>
+
+* consistent capitaliztion of paypal (#2397) ([09b9d59](https://github.com/paypal/paypal-checkout-components/commit/09b9d59)), closes [#2397](https://github.com/paypal/paypal-checkout-components/issues/2397)
+
+
+
+## <small>5.0.317 (2024-05-22)</small>
+
+* NCPS v2 👾 (#2389) ([c849191](https://github.com/paypal/paypal-checkout-components/commit/c849191)), closes [#2389](https://github.com/paypal/paypal-checkout-components/issues/2389)
+
+
+
+## <small>5.0.316 (2024-05-20)</small>
+
+* do not validate token usage in shopper insights (#2396) ([0be4402](https://github.com/paypal/paypal-checkout-components/commit/0be4402)), closes [#2396](https://github.com/paypal/paypal-checkout-components/issues/2396)
+
+
+
+## <small>5.0.315 (2024-05-20)</small>
+
+* is eligible in paypal network check for shopper insights (#2388) ([17d051a](https://github.com/paypal/paypal-checkout-components/commit/17d051a)), closes [#2388](https://github.com/paypal/paypal-checkout-components/issues/2388)
+
+
+
+## <small>5.0.314 (2024-05-15)</small>
+
+* add flow-typed to repository (#2391) ([4490e14](https://github.com/paypal/paypal-checkout-components/commit/4490e14)), closes [#2391](https://github.com/paypal/paypal-checkout-components/issues/2391)
+
+
+
+## <small>5.0.313 (2024-05-13)</small>
+
+* Ran npm run format on main & these needed formatting (#2390) ([c08c9ff](https://github.com/paypal/paypal-checkout-components/commit/c08c9ff)), closes [#2390](https://github.com/paypal/paypal-checkout-components/issues/2390)
+
+
+
+## <small>5.0.312 (2024-05-08)</small>
+
+* fix: handle tagline field on ncps hosted buttons (#2384) ([4a46749](https://github.com/paypal/paypal-checkout-components/commit/4a46749)), closes [#2384](https://github.com/paypal/paypal-checkout-components/issues/2384)
+
+
+
+## <small>5.0.311 (2024-05-01)</small>
+
+* Update vaulted pre-render to support customerId check (#2382) ([42eec79](https://github.com/paypal/paypal-checkout-components/commit/42eec79)), closes [#2382](https://github.com/paypal/paypal-checkout-components/issues/2382)
+
+
+
+## <small>5.0.310 (2024-05-01)</small>
+
+* fix: add eslint-config-grumbler as dev dependency (#2383) ([05bb7b6](https://github.com/paypal/paypal-checkout-components/commit/05bb7b6)), closes [#2383](https://github.com/paypal/paypal-checkout-components/issues/2383)
+
+
+
+## <small>5.0.309 (2024-04-24)</small>
+
+* Use Standalone buttons for V2 of Hosted Buttons (#2375) ([04cca79](https://github.com/paypal/paypal-checkout-components/commit/04cca79)), closes [#2375](https://github.com/paypal/paypal-checkout-components/issues/2375)
+
+
+
+## <small>5.0.308 (2024-04-17)</small>
+
+* feat: dynamic messaging (#2349) ([4b3d77a](https://github.com/paypal/paypal-checkout-components/commit/4b3d77a)), closes [#2349](https://github.com/paypal/paypal-checkout-components/issues/2349)
+
+
+
+## <small>5.0.307 (2024-04-03)</small>
+
+* remove unused buttonDesign experiment (#2368) ([cb69c02](https://github.com/paypal/paypal-checkout-components/commit/cb69c02)), closes [#2368](https://github.com/paypal/paypal-checkout-components/issues/2368)
+
+
+
+## <small>5.0.306 (2024-03-27)</small>
+
+* feat(venmo): eligibility (#2366) ([530567f](https://github.com/paypal/paypal-checkout-components/commit/530567f)), closes [#2366](https://github.com/paypal/paypal-checkout-components/issues/2366)
+
+
+
+## <small>5.0.305 (2024-03-20)</small>
+
+* Add recommended methods on FPTI log (#2362) ([a41e3f9](https://github.com/paypal/paypal-checkout-components/commit/a41e3f9)), closes [#2362](https://github.com/paypal/paypal-checkout-components/issues/2362)
+
+
+
+## <small>5.0.304 (2024-03-13)</small>
+
+* Rename sdkIntegrationSource buttons zoid prop (#2334) ([34e811a](https://github.com/paypal/paypal-checkout-components/commit/34e811a)), closes [#2334](https://github.com/paypal/paypal-checkout-components/issues/2334)
+
+
+
+## <small>5.0.303 (2024-03-08)</small>
+
+* Revert "Render Debit or Credit Card when `style.layout` is "horizontal" (#2346)" (#2359) ([fbd0c27](https://github.com/paypal/paypal-checkout-components/commit/fbd0c27)), closes [#2346](https://github.com/paypal/paypal-checkout-components/issues/2346) [#2359](https://github.com/paypal/paypal-checkout-components/issues/2359)
+
+
+
+## <small>5.0.302 (2024-03-06)</small>
+
+* add QRCode component to hosted buttons (#2351) ([648b54d](https://github.com/paypal/paypal-checkout-components/commit/648b54d)), closes [#2351](https://github.com/paypal/paypal-checkout-components/issues/2351)
+
+
+
+## <small>5.0.301 (2024-03-05)</small>
+
+* Revert "update axo loader library (#2350)" (#2353) ([914d42d](https://github.com/paypal/paypal-checkout-components/commit/914d42d)), closes [#2350](https://github.com/paypal/paypal-checkout-components/issues/2350) [#2353](https://github.com/paypal/paypal-checkout-components/issues/2353)
+
+
+
+## <small>5.0.300 (2024-03-01)</small>
+
+* update axo loader library (#2350) ([bcdf9c3](https://github.com/paypal/paypal-checkout-components/commit/bcdf9c3)), closes [#2350](https://github.com/paypal/paypal-checkout-components/issues/2350)
+
+
+
+## <small>5.0.299 (2024-02-28)</small>
+
+* fix fastlane interface (#2347) ([d4be802](https://github.com/paypal/paypal-checkout-components/commit/d4be802)), closes [#2347](https://github.com/paypal/paypal-checkout-components/issues/2347)
+
+
+
+## <small>5.0.298 (2024-02-20)</small>
+
+* update metrics with new interface and namespace (#2332) ([e871cfe](https://github.com/paypal/paypal-checkout-components/commit/e871cfe)), closes [#2332](https://github.com/paypal/paypal-checkout-components/issues/2332)
+
+
+
+## <small>5.0.297 (2024-02-14)</small>
+
+* prepare to move Connect name to Fastlane (#2333) ([d8d1f3c](https://github.com/paypal/paypal-checkout-components/commit/d8d1f3c)), closes [#2333](https://github.com/paypal/paypal-checkout-components/issues/2333)
+
+
+
+## <small>5.0.296 (2024-02-01)</small>
+
+* Revert "Button Redesign: Colors 👾 (#2317)" (#2326) ([513b096](https://github.com/paypal/paypal-checkout-components/commit/513b096)), closes [#2317](https://github.com/paypal/paypal-checkout-components/issues/2317) [#2326](https://github.com/paypal/paypal-checkout-components/issues/2326)
+
+
+
+## <small>5.0.295 (2024-01-24)</small>
+
+* remove customer wrapper from getRecommendedPaymentMethods (#2318) ([6f530be](https://github.com/paypal/paypal-checkout-components/commit/6f530be)), closes [#2318](https://github.com/paypal/paypal-checkout-components/issues/2318)
+
+
+
+## <small>5.0.294 (2024-01-17)</small>
+
+* Axo is expected clientId to be passed, currently it is being passed as clientID (#2313) ([10689f9](https://github.com/paypal/paypal-checkout-components/commit/10689f9)), closes [#2313](https://github.com/paypal/paypal-checkout-components/issues/2313)
+
+
+
+## <small>5.0.293 (2024-01-10)</small>
+
+* remove protected export for shopper insights (#2308) ([b616ef6](https://github.com/paypal/paypal-checkout-components/commit/b616ef6)), closes [#2308](https://github.com/paypal/paypal-checkout-components/issues/2308)
+
+
+
+## <small>5.0.292 (2024-01-03)</small>
+
+* Add ShopperInsights component (#2286) ([57a9f69](https://github.com/paypal/paypal-checkout-components/commit/57a9f69)), closes [#2286](https://github.com/paypal/paypal-checkout-components/issues/2286)
+
+
+
+## <small>5.0.291 (2023-12-15)</small>
+
+* feat: provide fraudnet preload functionality and wire up connect with it (#2287) ([fac18df](https://github.com/paypal/paypal-checkout-components/commit/fac18df)), closes [#2287](https://github.com/paypal/paypal-checkout-components/issues/2287)
+
+
+
+## <small>5.0.290 (2023-12-15)</small>
+
+* add debug support for axo (#2292) ([d858f23](https://github.com/paypal/paypal-checkout-components/commit/d858f23)), closes [#2292](https://github.com/paypal/paypal-checkout-components/issues/2292)
+
+
+
+## <small>5.0.289 (2023-11-30)</small>
+
+* fix: update to connect loader 1.1.1 (#2282) ([77b7dc0](https://github.com/paypal/paypal-checkout-components/commit/77b7dc0)), closes [#2282](https://github.com/paypal/paypal-checkout-components/issues/2282)
+
+
+
+## <small>5.0.288 (2023-11-29)</small>
+
+* fix: bump connect loader to beta without polyfill (#2281) ([57b67bb](https://github.com/paypal/paypal-checkout-components/commit/57b67bb)), closes [#2281](https://github.com/paypal/paypal-checkout-components/issues/2281)
+
+
+
+## <small>5.0.287 (2023-11-29)</small>
+
+* feat(connect): add initial support for connect component (#2280) ([fcc0f44](https://github.com/paypal/paypal-checkout-components/commit/fcc0f44)), closes [#2280](https://github.com/paypal/paypal-checkout-components/issues/2280)
+
+
+
+## <small>5.0.286 (2023-11-16)</small>
+
+* Inherit overflow from parent for firefox hover/filter side-effect (#2274) ([1174669](https://github.com/paypal/paypal-checkout-components/commit/1174669)), closes [#2274](https://github.com/paypal/paypal-checkout-components/issues/2274)
+
+
+
+## <small>5.0.285 (2023-11-07)</small>
+
+* Venmo overlay (#2271) ([294709b](https://github.com/paypal/paypal-checkout-components/commit/294709b)), closes [#2271](https://github.com/paypal/paypal-checkout-components/issues/2271)
+
+
+
+## <small>5.0.284 (2023-11-02)</small>
+
+* Update CODE_OF_CONDUCT.md (#2268) ([6caee02](https://github.com/paypal/paypal-checkout-components/commit/6caee02)), closes [#2268](https://github.com/paypal/paypal-checkout-components/issues/2268)
+
+
+
+## <small>5.0.283 (2023-10-18)</small>
+
+* Support New displayOnly Confg Option (#2252) ([bcd4e50](https://github.com/paypal/paypal-checkout-components/commit/bcd4e50)), closes [#2252](https://github.com/paypal/paypal-checkout-components/issues/2252)
+
+
+
+## <small>5.0.282 (2023-10-12)</small>
+
+* Include branded in HCF eligibility check (#2257) ([415610a](https://github.com/paypal/paypal-checkout-components/commit/415610a)), closes [#2257](https://github.com/paypal/paypal-checkout-components/issues/2257)
+
+
+
+## <small>5.0.281 (2023-09-06)</small>
+
+* Remove venmoAppLabel experiment (#2231) ([c27574e](https://github.com/paypal/paypal-checkout-components/commit/c27574e)), closes [#2231](https://github.com/paypal/paypal-checkout-components/issues/2231)
+
+
+
 ## <small>5.0.280 (2023-08-29)</small>
 
 * pass cmid through card components (#2235) ([b15f38d](https://github.com/paypal/paypal-checkout-components/commit/b15f38d)), closes [#2235](https://github.com/paypal/paypal-checkout-components/issues/2235)

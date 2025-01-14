@@ -35,14 +35,18 @@ jobs:
       - name: ▶️ Run Typecheck
         run: npm run typecheck
 
+      - name: ▶️ Run Vitest
+        run: npm run test:unit
+
       - name: ▶️ Run Karma
         run: npm run karma
 
       - name: ▶️ Run Jest SSR
         run: npm run jest-ssr
 
-      - name: ▶️ Run Jest Screenshot
-        run: npm run jest-screenshot
+      # Temporarily disable this until after button redesign project
+      # - name: ▶️ Run Jest Screenshot
+      #   run: npm run jest-screenshot
 
       - name: ▶️ Run Percy Screenshot
         if: ${{ github.actor != 'renovate[bot]' }}
@@ -64,6 +68,12 @@ jobs:
         with:
           directory: ./coverage/jest
           flags: jest
+
+      - name: ⬆️ Upload vitest coverage report
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./coverage/vitest
+          flags: vitest
 
       - name: 🤏 Check Bundle Size
         run: npm run check-size

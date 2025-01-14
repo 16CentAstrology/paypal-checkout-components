@@ -23,6 +23,7 @@ module.exports = {
     __URI__: {
       __CHECKOUT__: "/checkoutnow",
       __BUTTONS__: "/smart/buttons",
+      __PIXEL__: "/smart/pixel",
       __MENU__: "/smart/menu",
       __QRCODE__: "/smart/qrcode",
       __VENMO__: "/smart/checkout/venmo/popup",
@@ -32,6 +33,8 @@ module.exports = {
       __CARD_FIELD__: "/smart/card-field",
       __WALLET__: "/smart/wallet",
       __PAYMENT_FIELDS__: "/altpayfields",
+      __MESSAGE_MODAL__:
+        "https://www.paypalobjects.com/upstream/bizcomponents/js/modal.js",
     },
   },
 };

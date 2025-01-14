@@ -6,16 +6,15 @@ import {
   isIos,
   isIOS14,
   isSafari,
-  isSFVC,
   type Experiment,
   isDevice,
   isTablet,
   getElement,
-  isLocalStorageEnabled,
   isStandAlone,
   once,
+  memoize,
 } from "@krakenjs/belter/src";
-import { ENV, FUNDING } from "@paypal/sdk-constants/src";
+import { send as postRobotSend } from "@krakenjs/post-robot/src";
 import {
   getEnableFunding,
   getLogger,
@@ -24,7 +23,11 @@ import {
   getPlatform,
   getComponents,
   getEnv,
+  getNamespace,
+  getPayPalDomain,
+  getFirstRenderExperiments,
 } from "@paypal/sdk-client/src";
+import { FUNDING, FPTI_KEY } from "@paypal/sdk-constants/src";
 import { getRefinedFundingEligibility } from "@paypal/funding-components/src";
 
 import type { Experiment as EligibilityExperiment } from "../../types";
@@ -50,7 +53,7 @@ type DetermineFlowOptions = {|
  *
  * @param {string} key for logging
  */
-const logNativeScreenInformation = once((key = "screenInformation") => {
+const logNativeScreenInformation = once(() => {
   if (window) {
     const height = window.innerHeight;
     const outerHeight = window.outerHeight;
@@ -60,18 +63,16 @@ const logNativeScreenInformation = once((key = "screenInformation") => {
     const ios14 = isIOS14();
     const standAlone = isStandAlone();
 
-    const screenInformation = {
-      computedHeight,
-      height,
-      ios14,
-      outerHeight,
-      scale,
-      standAlone,
-    };
-
     getLogger()
       // $FlowFixMe - object is mixed values when this expects all of the same value types
-      .info(key, screenInformation);
+      .info("sfvcScreenInformation", {
+        computedHeight,
+        height,
+        ios14,
+        outerHeight,
+        scale,
+        standAlone,
+      });
   }
 });
 
@@ -90,16 +91,13 @@ export function determineFlow(
 }
 
 export function isSupportedNativeBrowser(): boolean {
+  logNativeScreenInformation();
+
   if (typeof window === "undefined") {
     return false;
   }
 
   if (!userAgentSupportsPopups()) {
-    return false;
-  }
-
-  if (isSFVC()) {
-    logNativeScreenInformation("sfvcScreenInformation");
     return false;
   }
 
@@ -175,21 +173,6 @@ export function getVenmoExperiment(): EligibilityExperiment {
   }
 }
 
-export function getVenmoAppLabelExperiment(): EligibilityExperiment {
-  const isEnvForTest =
-    getEnv() === ENV.LOCAL || getEnv() === ENV.TEST || getEnv() === ENV.STAGE;
-
-  let isEnabledForTest = false;
-
-  if (isLocalStorageEnabled() && isEnvForTest) {
-    isEnabledForTest = window.localStorage.getItem("enable_venmo_app_label");
-  }
-
-  return {
-    enableVenmoAppLabel: isEnabledForTest,
-  };
-}
-
 export function getRenderedButtons(
   props: ButtonProps
 ): $ReadOnlyArray<$Values<typeof FUNDING>> {
@@ -198,6 +181,7 @@ export function getRenderedButtons(
     onShippingChange,
     onShippingAddressChange,
     onShippingOptionsChange,
+    hasShippingCallback,
     style = {},
     enableFunding = getEnableFunding(),
     fundingEligibility = getRefinedFundingEligibility(),
@@ -208,6 +192,7 @@ export function getRenderedButtons(
     createBillingAgreement,
     createSubscription,
     createVaultSetupToken,
+    displayOnly,
   } = props;
 
   const flow = determineFlow({
@@ -231,11 +216,13 @@ export function getRenderedButtons(
     onShippingChange,
     onShippingAddressChange,
     onShippingOptionsChange,
+    hasShippingCallback,
     flow,
     applePaySupport,
     supportsPopups,
     supportedNativeBrowser,
     experiment,
+    displayOnly,
   });
   return renderedButtons;
 }
@@ -322,7 +309,7 @@ export function applePaySession(): ?ApplePaySessionConfigRequest {
 export function getButtonExperiments(): EligibilityExperiment {
   return {
     ...getVenmoExperiment(),
-    ...getVenmoAppLabelExperiment(),
+    ...getFirstRenderExperiments(),
   };
 }
 
@@ -375,3 +362,91 @@ export function getButtonSize(
     }
   }
 }
+
+function buildModalBundleUrl(): string {
+  let url = __PAYPAL_CHECKOUT__.__URI__.__MESSAGE_MODAL__;
+  if (getEnv() === "sandbox") {
+    url = url.replace("/js/", "/sandbox/");
+  } else if (getEnv() === "stage" || getEnv() === "local") {
+    url = url.replace("/js/", "/stage/");
+  }
+  return url;
+}
+
+export const getModal: (
+  clientID: string,
+  merchantID: $ReadOnlyArray<string> | void,
+  buttonSessionID: string
+) => Object = memoize(async (clientID, merchantID, buttonSessionID) => {
+  try {
+    const namespace = getNamespace();
+    if (!window[namespace].MessagesModal) {
+      // eslint-disable-next-line no-restricted-globals, promise/no-native
+      await new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.setAttribute("data-pp-namespace", namespace);
+        script.src = buildModalBundleUrl();
+        script.addEventListener("error", (err: Event) => {
+          reject(err);
+        });
+        script.addEventListener("load", () => {
+          document.body?.removeChild(script);
+          resolve();
+        });
+        document.body?.appendChild(script);
+      });
+    }
+
+    return window[namespace].MessagesModal({
+      buttonSessionId: buttonSessionID,
+      onApply: () =>
+        getLogger()
+          .info("button_message_modal_apply")
+          .track({
+            [FPTI_KEY.TRANSITION]: "button_message_modal_apply",
+            [FPTI_KEY.STATE]: "BUTTON_MESSAGE",
+            [FPTI_KEY.BUTTON_SESSION_UID]: buttonSessionID,
+            [FPTI_KEY.CONTEXT_ID]: buttonSessionID,
+            [FPTI_KEY.CONTEXT_TYPE]: "button_session_id",
+            [FPTI_KEY.EVENT_NAME]: "modal_apply",
+          })
+          .flush(),
+      account: `client-id:${clientID}`,
+      merchantId: merchantID?.join(",") || undefined,
+    });
+  } catch (err) {
+    // $FlowFixMe flow doesn't seem to understand that the reset function property exists on the function object itself
+    getModal.reset();
+    getLogger()
+      .error("button_message_modal_fetch_error", { err })
+      .track({
+        err: err.message || "BUTTON_MESSAGE_MODAL_FETCH_ERROR",
+        details: err.details,
+        stack: JSON.stringify(err.stack || err),
+      });
+  }
+});
+
+export const sendPostRobotMessageToButtonIframe = ({
+  eventName,
+  payload,
+}: // eslint-disable-next-line flowtype/require-exact-type
+{
+  eventName: string,
+  payload: Object,
+}) => {
+  const iframes = document.querySelectorAll("iframe");
+
+  // I don't understand why but trying to make iframes which is a NodeList
+  // into an Iterable (so we could do a for..of loop or .forEach) is not
+  // working. It ends up iterating over itself so instead of looping over the contents
+  // of the NodeList you loop over the NodeList itself which is extremely unexpected
+  // for..in works though :shrug: - Shane 11 Dec 2024
+  for (let i = 0; i < iframes.length; i++) {
+    if (iframes[i].name.includes("zoid__paypal_buttons")) {
+      postRobotSend(iframes[i].contentWindow, eventName, payload, {
+        domain: getPayPalDomain(),
+      });
+    }
+  }
+};

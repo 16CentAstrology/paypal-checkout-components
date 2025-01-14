@@ -113,11 +113,13 @@ function getTestGlobals(productionGlobals) {
       __URI__: {
         __CHECKOUT__: `/base/test/integration/windows/checkout/index.htm?checkouturl=true`,
         __BUTTONS__: `/base/test/integration/windows/button/index.htm`,
+        __PIXEL__: `/base/test/integration/windows/pixel/index.htm`,
         __MENU__: `/base/test/integration/windows/menu/index.htm`,
         __CARD_FIELDS__: `/base/test/integration/windows/card-fields/index.htm`,
         __CARD_FIELD__: `/base/test/integration/windows/card-field/index.htm`,
         __WALLET__: `/base/test/integration/windows/wallet/index.htm`,
         __PAYMENT_FIELDS__: `/base/test/integration/windows/paymentfields/index.htm`,
+        __MESSAGE_MODAL__: `/base/test/integration/windows/button/modal.js`,
       },
     },
 
@@ -144,6 +146,8 @@ function getTestGlobals(productionGlobals) {
       __EXPERIENCE__: "1432",
       __TREATMENT__: "1122",
     },
+    __FIRST_RENDER_EXPERIMENTS__: () =>
+      `window.__TEST_FIRST_RENDER_EXPERIMENTS__ || null`,
 
     __ZOID__: {
       ...productionGlobals.__ZOID__,

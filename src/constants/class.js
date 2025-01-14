@@ -2,6 +2,8 @@
 
 export const CLASS = {
   CONTAINER: ("paypal-button-container": "paypal-button-container"),
+  AUTORESIZE_CONTAINER:
+    ("paypal-autoresize-container": "paypal-autoresize-container"),
   BUTTON_ROW: ("paypal-button-row": "paypal-button-row"),
   BUTTON: ("paypal-button": "paypal-button"),
   BUTTON_LABEL:
@@ -12,6 +14,7 @@ export const CLASS = {
   COLOR: ("paypal-button-color": "paypal-button-color"),
   TEXT_COLOR: ("paypal-button-text-color": "paypal-button-text-color"),
   SHAPE: ("paypal-button-shape": "paypal-button-shape"),
+  BORDER_RADIUS: ("paypal-button-border-radius": "paypal-button-border-radius"),
   LAYOUT: ("paypal-button-layout": "paypal-button-layout"),
   NUMBER: ("paypal-button-number": "paypal-button-number"),
   ENV: ("paypal-button-env": "paypal-button-env"),
@@ -41,4 +44,9 @@ export const CLASS = {
   HIDDEN: ("hidden": "hidden"),
 
   IMMEDIATE: ("immediate": "immediate"),
+
+  BUTTON_MESSAGE: ("paypal-button-message": "paypal-button-message"),
+
+  BUTTON_MESSAGE_RESERVE:
+    ("paypal-button-message-reserved": "paypal-button-message-reserved"),
 };

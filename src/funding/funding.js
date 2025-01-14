@@ -1,16 +1,19 @@
 /* @flow */
 
-import type { FundingEligibilityType } from "@paypal/sdk-client/src";
-import { PLATFORM, FUNDING, COMPONENTS } from "@paypal/sdk-constants/src";
+import type {
+  FundingEligibilityType,
+  CardEligibility,
+} from "@paypal/sdk-client/src";
+import {
+  PLATFORM,
+  FUNDING,
+  COMPONENTS,
+  DISPLAY_ONLY_VALUES,
+} from "@paypal/sdk-constants/src";
 import { SUPPORTED_FUNDING_SOURCES } from "@paypal/funding-components/src";
 
 import type { Wallet, Experiment } from "../types";
 import { BUTTON_LAYOUT, BUTTON_FLOW } from "../constants";
-import type {
-  OnShippingChange,
-  OnShippingAddressChange,
-  OnShippingOptionsChange,
-} from "../ui/buttons/props";
 
 import { getFundingConfig } from "./config";
 
@@ -25,12 +28,41 @@ type IsFundingEligibleOptions = {|
   onShippingChange: ?Function,
   onShippingAddressChange: ?Function,
   onShippingOptionsChange: ?Function,
+  hasShippingCallback?: boolean,
   wallet?: ?Wallet,
   applePaySupport: boolean,
   supportsPopups: boolean,
   supportedNativeBrowser: boolean,
   experiment?: Experiment,
+  displayOnly?: $ReadOnlyArray<$Values<typeof DISPLAY_ONLY_VALUES>>,
 |};
+
+function isFundingVaultable({
+  fundingEligibility,
+  fundingSource,
+}: {|
+  fundingEligibility: FundingEligibilityType,
+  fundingSource: $Values<typeof FUNDING>,
+|}): boolean {
+  // fundingEligibility.card doesn't give vaultable property like other funding sources
+  if (
+    fundingSource === FUNDING.CARD &&
+    fundingEligibility[fundingSource]?.vendors
+  ) {
+    const { vendors } = (fundingEligibility[fundingSource]: CardEligibility);
+
+    // If any vendors are both eligible & vaultable, card is vaultable
+    return Object.keys(vendors).some(
+      (vendor) => vendors[vendor]?.eligible && vendors[vendor]?.vaultable
+    );
+  }
+
+  if (!fundingEligibility[fundingSource]?.vaultable) {
+    return false;
+  }
+
+  return true;
+}
 
 export function isFundingEligible(
   source: $Values<typeof FUNDING>,
@@ -44,12 +76,14 @@ export function isFundingEligible(
     onShippingChange,
     onShippingAddressChange,
     onShippingOptionsChange,
+    hasShippingCallback,
     flow,
     wallet,
     applePaySupport,
     supportsPopups,
     supportedNativeBrowser,
     experiment,
+    displayOnly,
   }: IsFundingEligibleOptions
 ): boolean {
   if (!fundingEligibility[source] || !fundingEligibility[source].eligible) {
@@ -70,18 +104,34 @@ export function isFundingEligible(
     return false;
   }
 
+  const shouldDisplayOnlyVaultableButtons =
+    displayOnly && displayOnly.includes("vaultable");
+
+  if (
+    shouldDisplayOnlyVaultableButtons &&
+    !isFundingVaultable({ fundingEligibility, fundingSource: source })
+  ) {
+    return false;
+  }
+
   if (
     fundingConfig.eligible &&
-    !fundingConfig.eligible({
+    !fundingConfig.eligible?.({
       enableFunding,
       components,
       experiment,
+      flow,
       fundingSource,
       fundingEligibility,
       layout,
-      shippingChange:
-        onShippingChange || onShippingAddressChange || onShippingOptionsChange,
+      shippingChange: Boolean(
+        hasShippingCallback ||
+          onShippingChange ||
+          onShippingAddressChange ||
+          onShippingOptionsChange
+      ),
       wallet,
+      displayOnly,
     })
   ) {
     return false;
@@ -107,7 +157,7 @@ export function isFundingEligible(
   }
 
   if (fundingConfig.requires) {
-    const required = fundingConfig.requires({ platform });
+    const required = fundingConfig.requires({ experiment, platform });
 
     if (required.popup === true && supportsPopups === false) {
       return false;
@@ -146,12 +196,14 @@ export function determineEligibleFunding({
   onShippingChange,
   onShippingAddressChange,
   onShippingOptionsChange,
+  hasShippingCallback,
   flow,
   wallet,
   applePaySupport,
   supportsPopups,
   supportedNativeBrowser,
   experiment,
+  displayOnly = [],
 }: {|
   fundingSource: ?$Values<typeof FUNDING>,
   remembered: $ReadOnlyArray<$Values<typeof FUNDING>>,
@@ -163,12 +215,14 @@ export function determineEligibleFunding({
   onShippingChange?: ?Function,
   onShippingAddressChange?: ?Function,
   onShippingOptionsChange?: ?Function,
+  hasShippingCallback: boolean,
   flow: $Values<typeof BUTTON_FLOW>,
   wallet?: ?Wallet,
   applePaySupport: boolean,
   supportsPopups: boolean,
   supportedNativeBrowser: boolean,
   experiment: Experiment,
+  displayOnly?: $ReadOnlyArray<$Values<typeof DISPLAY_ONLY_VALUES>>,
 |}): $ReadOnlyArray<$Values<typeof FUNDING>> {
   if (fundingSource) {
     return [fundingSource];
@@ -185,12 +239,14 @@ export function determineEligibleFunding({
       onShippingChange,
       onShippingAddressChange,
       onShippingOptionsChange,
+      hasShippingCallback,
       flow,
       wallet,
       applePaySupport,
       supportsPopups,
       supportedNativeBrowser,
       experiment,
+      displayOnly,
     })
   );
 
@@ -205,20 +261,16 @@ export function determineEligibleFunding({
 
 export function isWalletFundingEligible({
   wallet,
-  onShippingChange,
-  onShippingAddressChange,
-  onShippingOptionsChange,
+  hasShippingCallback,
 }: {|
   wallet: ?Wallet,
-  onShippingChange: ?OnShippingChange,
-  onShippingAddressChange: ?OnShippingAddressChange,
-  onShippingOptionsChange: ?OnShippingOptionsChange,
+  hasShippingCallback: boolean,
 |}): boolean {
   if (!wallet) {
     return false;
   }
 
-  if (onShippingChange || onShippingAddressChange || onShippingOptionsChange) {
+  if (hasShippingCallback) {
     return false;
   }
 

@@ -8,6 +8,7 @@ declare var __PAYPAL_CHECKOUT__: {|
   __REMEMBERED_FUNDING__: $ReadOnlyArray<$Values<typeof FUNDING>>,
   __URI__: {|
     __BUTTONS__: string,
+    __PIXEL__: string,
     __CHECKOUT__: string,
     __CARD_FIELDS__: string,
     __CARD_FIELD__: string,
@@ -18,6 +19,7 @@ declare var __PAYPAL_CHECKOUT__: {|
     __VENMO__: string,
     __WALLET__: string,
     __PAYMENT_FIELDS__: string,
+    __MESSAGE_MODAL__: string,
   |},
 |};
 

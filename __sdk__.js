@@ -62,6 +62,13 @@ module.exports = {
     entry: "./src/interface/wallet",
     globals,
   },
+  // in process of being renamed to fastlane
+  connect: {
+    entry: "./src/connect/interface",
+  },
+  fastlane: {
+    entry: "./src/connect/interface",
+  },
   // @deprecated - renamed to payment-fields to be removed
   fields: {
     entry: "./src/interface/fields",
@@ -77,6 +84,17 @@ module.exports = {
   },
   "card-fields": {
     entry: "./src/interface/card-fields",
+    globals,
+  },
+  "hosted-buttons": {
+    entry: "./src/interface/hosted-buttons",
+    globals,
+  },
+  "shopper-insights": {
+    entry: "./src/shopper-insights/interface",
+  },
+  "three-domain-secure": {
+    entry: "./src/three-domain-secure/interface",
     globals,
   },
 };

@@ -59,8 +59,9 @@ export type ContentType = {|
 export type Experiment = {|
   enableVenmo?: boolean,
   disablePaylater?: boolean,
-  enableVenmoAppLabel?: boolean,
   venmoWebEnabled?: boolean,
+  // first render experiments
+  venmoVaultWithoutPurchase?: boolean,
 |};
 
 export type Requires = {|
