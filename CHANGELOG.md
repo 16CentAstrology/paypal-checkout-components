@@ -1,3 +1,9 @@
+## <small>5.0.417 (2026-05-26)</small>
+
+* Fixed passing stale experiment to methods (#2636) ([59e1681](https://github.com/paypal/paypal-checkout-components/commit/59e1681)), closes [#2636](https://github.com/paypal/paypal-checkout-components/issues/2636)
+
+
+
 ## <small>5.0.416 (2026-05-18)</small>
 
 * [Feature] PopupBridge++ (#2609) ([4f2327d](https://github.com/paypal/paypal-checkout-components/commit/4f2327d)), closes [#2609](https://github.com/paypal/paypal-checkout-components/issues/2609)
