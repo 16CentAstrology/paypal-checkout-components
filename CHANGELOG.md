@@ -1,3 +1,9 @@
+## <small>5.0.418 (2026-05-26)</small>
+
+* chore(release): 5.0.417 🎉 ([4f4c966](https://github.com/paypal/paypal-checkout-components/commit/4f4c966))
+
+
+
 ## <small>5.0.417 (2026-05-26)</small>
 
 * Fixed passing stale experiment to methods (#2636) ([59e1681](https://github.com/paypal/paypal-checkout-components/commit/59e1681)), closes [#2636](https://github.com/paypal/paypal-checkout-components/issues/2636)
