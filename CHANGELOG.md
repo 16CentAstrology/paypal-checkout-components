@@ -1,3 +1,9 @@
+## <small>5.0.420 (2026-05-26)</small>
+
+* chore(release): 5.0.419 🎉 ([669e327](https://github.com/paypal/paypal-checkout-components/commit/669e327))
+
+
+
 ## <small>5.0.419 (2026-05-26)</small>
 
 * add requestedButtonColor unit tests (#2639) ([2e8807a](https://github.com/paypal/paypal-checkout-components/commit/2e8807a)), closes [#2639](https://github.com/paypal/paypal-checkout-components/issues/2639)
