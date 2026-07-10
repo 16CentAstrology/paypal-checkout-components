@@ -1,3 +1,9 @@
+## <small>5.0.423 (2026-07-10)</small>
+
+* [Feature] Merchant Referrer URL (#2647) ([1bef46c](https://github.com/paypal/paypal-checkout-components/commit/1bef46c)), closes [#2647](https://github.com/paypal/paypal-checkout-components/issues/2647)
+
+
+
 ## <small>5.0.422 (2026-07-10)</small>
 
 * chore: bump zoid (#2648) ([6b43aec](https://github.com/paypal/paypal-checkout-components/commit/6b43aec)), closes [#2648](https://github.com/paypal/paypal-checkout-components/issues/2648)
