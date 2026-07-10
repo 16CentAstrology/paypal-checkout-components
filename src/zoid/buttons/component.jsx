@@ -109,6 +109,7 @@ import {
   getModal,
   sendPostRobotMessageToButtonIframe,
   isEagerOrderCreationEnabled,
+  resolveMerchantDomain,
 } from "./util";
 
 export type ButtonsComponent = ZoidComponent<
@@ -886,6 +887,13 @@ export const getButtonsComponent: () => ButtonsComponent = memoize(() => {
         type: "string",
         required: false,
         queryParam: true,
+      },
+
+      merchantDomain: {
+        type: "string",
+        required: false,
+        sendToChild: true,
+        value: ({ props }) => resolveMerchantDomain(props.merchantDomain),
       },
 
       intent: {
