@@ -1,3 +1,9 @@
+## <small>5.0.424 (2026-07-20)</small>
+
+* Pass partnerAttributionID as query param to Saved Payment Methods (#2649) ([2d5f637](https://github.com/paypal/paypal-checkout-components/commit/2d5f637)), closes [#2649](https://github.com/paypal/paypal-checkout-components/issues/2649)
+
+
+
 ## <small>5.0.423 (2026-07-10)</small>
 
 * [Feature] Merchant Referrer URL (#2647) ([1bef46c](https://github.com/paypal/paypal-checkout-components/commit/1bef46c)), closes [#2647](https://github.com/paypal/paypal-checkout-components/issues/2647)
